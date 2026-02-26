@@ -40,10 +40,6 @@
       background: #2e59d9;
     }
 
-    h2 {
-      margin-bottom: 20px;
-    }
-
     #result {
       font-weight: bold;
       margin-top: 15px;
@@ -54,9 +50,65 @@
 
 <h2>🎮 Simple Quiz Game</h2>
 
-<div class="quiz-box">
+<div class="quiz-box" id="quizBox">
   <p id="question"></p>
 
   <button onclick="checkAnswer(0)">A</button>
   <button onclick="checkAnswer(1)">B</button>
-  <button onclick="checkAnswer
+  <button onclick="checkAnswer(2)">C</button>
+
+  <p id="result"></p>
+</div>
+
+<script>
+
+let questions = [
+  {
+    question: "1. Wace kasa ce babban birnin Nigeria?",
+    options: ["A. Lagos", "B. Abuja", "C. Kano"],
+    correct: 1
+  },
+  {
+    question: "2. 5 + 3 = ?",
+    options: ["A. 6", "B. 8", "C. 10"],
+    correct: 1
+  },
+  {
+    question: "3. Wane launi ne sama?",
+    options: ["A. Blue", "B. Green", "C. Red"],
+    correct: 0
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+
+  if (currentQuestion >= questions.length) {
+
+    let message = "";
+    if (score === 3) {
+      message = "🏆 Excellent! Kai genius ne!";
+    } else if (score >= 2) {
+      message = "👏 Good job!";
+    } else {
+      message = "🙂 Ka kara kokari!";
+    }
+
+    document.getElementById("quizBox").innerHTML =
+      "<h3>Quiz ya kare!</h3>" +
+      "<p>Score dinka: " + score + " / " + questions.length + "</p>" +
+      "<p>" + message + "</p>" +
+      "<button onclick='restartQuiz()'>🔁 Restart</button>";
+
+    return;
+  }
+
+  document.getElementById("question").innerHTML =
+    questions[currentQuestion].question;
+
+  let buttons = document.getElementsByTagName("button");
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].innerHTML = questions[currentQuestion].options[i
