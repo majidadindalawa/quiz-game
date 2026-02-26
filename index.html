@@ -1,57 +1,55 @@
-<<!DOCTYPE html>
-<html>
-<head>
-  <title>Simple Quiz Game</title>
-</head>
-<body>
-
-<h2>Simple Quiz</h2>
-
-<p>1. Wace kasa ce babban birnin Nigeria?</p>
-
-<button onclick="checkAnswer('A')">A. Lagos</button><br><br>
-<button onclick="checkAnswer('B')">B. Abuja</button><br><br>
-<button onclick="checkAnswer('C')">C. Kano</button>
-
-<p id="result"></p>
-
 <script>
-function checkAnswer(answer) {
-  if(answer === 'B') {
-    document.getElementById("result").innerHTML = "Daidai ne! 🎉";
-  } else {
-    document.getElementById("result").innerHTML = "Ba daidai ba 😢";
+
+let questions = [
+  {
+    question: "1. Wace kasa ce babban birnin Nigeria?",
+    options: ["A. Lagos", "B. Abuja", "C. Kano"],
+    correct: 1
+  },
+  {
+    question: "2. 2 + 2 = ?",
+    options: ["A. 3", "B. 4", "C. 5"],
+    correct: 1
+  },
+  {
+    question: "3. Wane launi ne sama?",
+    options: ["A. Blue", "B. Green", "C. Red"],
+    correct: 0
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+
+  if (currentQuestion >= questions.length) {
+    document.getElementById("question").innerHTML = "Quiz ya kare!";
+    document.getElementById("result").innerHTML =
+      "Score dinka: " + score + " / " + questions.length;
+    return;
+  }
+
+  document.getElementById("question").innerHTML =
+    questions[currentQuestion].question;
+
+  let buttons = document.getElementsByTagName("button");
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].innerHTML = questions[currentQuestion].options[i];
   }
 }
-</script>
 
-</body>
-</html>Enter<!DOCTYPE html>
-<html>
-<head>
-  <title>Simple Quiz Game</title>
-</head>
-<body>
+function checkAnswer(index) {
 
-<h2>Simple Quiz</h2>
-
-<p>1. Wace kasa ce babban birnin Nigeria?</p>
-
-<button onclick="checkAnswer('A')">A. Lagos</button><br><br>
-<button onclick="checkAnswer('B')">B. Abuja</button><br><br>
-<button onclick="checkAnswer('C')">C. Kano</button>
-
-<p id="result"></p>
-
-<script>
-function checkAnswer(answer) {
-  if(answer === 'B') {
-    document.getElementById("result").innerHTML = "Daidai ne! 🎉";
-  } else {
-    document.getElementById("result").innerHTML = "Ba daidai ba 😢";
+  if (index === questions[currentQuestion].correct) {
+    score++;
   }
-}
-</script>
 
-</body>
-</html>Enterl>
+  currentQuestion++;
+  loadQuestion();
+}
+
+loadQuestion();
+
+    </script>
