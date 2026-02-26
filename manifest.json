@@ -1,0 +1,16 @@
+{
+  "name": "Majidadin Quiz App",
+  "short_name": "Majidadin Quiz",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
