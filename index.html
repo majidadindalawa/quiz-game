@@ -1,86 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Majidadin Quiz App</title>
-
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: #0f172a;
-  color: white;
-}
-
-.app {
-  margin-top: 50px;
-}
-
-button {
-  display: block;
-  width: 200px;
-  margin: 10px auto;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1d4ed8;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-  <h2>🎮 Majidadin Quiz App</h2>
-  <p id="highScore"></p>
-  <p id="timer"></p>
-  <p id="question"></p>
-
-  <button onclick="checkAnswer(0)" id="btn0"></button>
-  <button onclick="checkAnswer(1)" id="btn1"></button>
-  <button onclick="checkAnswer(2)" id="btn2"></button>
-
-  <p id="result"></p>
-</div>
-
-<script>
-
 let questions = [
-  {
-    question: "1. Wace kasa ce babban birnin Nigeria?",
-    options: ["A. Lagos", "B. Abuja", "C. Kano"],
-    correct: 1
-  },
-  {
-    question: "2. 5 + 3 = ?",
-    options: ["A. 6", "B. 8", "C. 10"],
-    correct: 1
-  },
-  {
-    question: "3. Wane launi ne sama?",
-    options: ["A. Blue", "B. Green", "C. Red"],
-    correct: 0
-  }
-];
 
-let currentQuestion = 0;
-let score = 0;
-let timeLeft = 10;
-let timerInterval;
+{ question: "1. Wace kasa ce babban birnin Nigeria?", options: ["A. Lagos", "B. Abuja", "C. Kano"], correct: 1 },
+{ question: "2. 5 + 3 = ?", options: ["A. 6", "B. 8", "C. 10"], correct: 1 },
+{ question: "3. Wane launi ne sama?", options: ["A. Blue", "B. Green", "C. Red"], correct: 0 },
+{ question: "4. 10 - 4 = ?", options: ["A. 6", "B. 5", "C. 4"], correct: 0 },
+{ question: "5. Sunan shugaban Nigeria 2024?", options: ["A. Tinubu", "B. Buhari", "C. Jonathan"], correct: 0 },
+{ question: "6. 9 x 2 = ?", options: ["A. 18", "B. 16", "C. 20"], correct: 0 },
+{ question: "7. Wace rana ce bayan Monday?", options: ["A. Sunday", "B. Tuesday", "C. Friday"], correct: 1 },
+{ question: "8. 15 ÷ 3 = ?", options: ["A. 4", "B. 5", "C. 6"], correct: 1 },
+{ question: "9. Babban birnin Ghana?", options: ["A. Accra", "B. Lagos", "C. Nairobi"], correct: 0 },
+{ question: "10. 7 + 6 = ?", options: ["A. 12", "B. 13", "C. 14"], correct: 1 },
 
-let highScore = localStorage.getItem("highScore") || 0;
-document.getElementById("highScore").innerHTML = "🏆 High Score: " + highScore;
-
-function startTimer() {
-  timeLeft = 10;
-  document.getElementById("timer").innerHTML = "⏳ " + timeLeft + "s";
-
-  timerInterval = setInterval(function() {
-    timeLeft--;
-    document.getElement
+{ question: "11. 12 x 2 = ?", options: ["A. 24", "B. 22", "C. 20"], correct: 0 },
+{ question: "12. Wace nahiyar Nigeria take?", options: ["A. Asia", "B. Africa", "C. Europe"], correct: 1 },
+{ question: "13. 100 ÷ 10 = ?", options: ["A. 5", "B. 20", "C. 10"], correct: 2 },
+{ question: "14. Launin ciyawa?", options: ["A. Green", "B. Blue", "C. Red"], correct: 0 },
+{ question: "15. 3 x 3 = ?", options: ["A. 6", "B. 9", "C. 12"], correct: 1 },
+{ question: "16. Wace wata ce ta farko?", options: ["A. January", "B. March", "C. June"], correct: 0 },
+{ question: "17. 20 - 5 = ?", options
