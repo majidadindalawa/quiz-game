@@ -2,75 +2,61 @@
 <html>
 <head>
   <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4e73df, #1cc88a);
+      text-align: center;
+      color: white;
+      padding: 50px;
+    }
+
+    .quiz-box {
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #4e73df;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2e59d9;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
 
-<h2>Simple Quiz Game</h2>
+<h2>🎮 Simple Quiz Game</h2>
 
-<p id="question"></p>
+<div class="quiz-box">
+  <p id="question"></p>
 
-<button onclick="checkAnswer(0)">A</button>
-<button onclick="checkAnswer(1)">B</button>
-<button onclick="checkAnswer(2)">C</button>
-
-<p id="result"></p>
-
-<script>
-
-let questions = [
-  {
-    question: "1. Wace kasa ce babban birnin Nigeria?",
-    options: ["A. Lagos", "B. Abuja", "C. Kano"],
-    correct: 1
-  },
-  {
-    question: "2. 2 + 2 = ?",
-    options: ["A. 3", "B. 4", "C. 5"],
-    correct: 1
-  },
-  {
-    question: "3. Wane launi ne sama?",
-    options: ["A. Blue", "B. Green", "C. Red"],
-    correct: 0
-  }
-];
-
-let currentQuestion = 0;
-let score = 0;
-
-function loadQuestion() {
-
-  if (currentQuestion >= questions.length) {
-    document.getElementById("question").innerHTML =
-      "Quiz ya kare! Score dinka: " + score + " / " + questions.length;
-
-    document.getElementById("result").innerHTML = "";
-    return;
-  }
-
-  document.getElementById("question").innerHTML =
-    questions[currentQuestion].question;
-
-  let buttons = document.getElementsByTagName("button");
-
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].innerHTML = questions[currentQuestion].options[i];
-  }
-}
-
-function checkAnswer(index) {
-
-  if (index === questions[currentQuestion].correct) {
-    score++;
-  }
-
-  currentQuestion++;
-  loadQuestion();
-}
-
-loadQuestion();
-
-</script>
-
-</body>
-</html>
+  <button onclick="checkAnswer(0)">A</button>
+  <button onclick="checkAnswer(1)">B</button>
+  <button onclick="checkAnswer
