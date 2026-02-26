@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Game</title>
+</head>
+<body>
+
+<h2>Simple Quiz Game</h2>
+
+<p id="question"></p>
+
+<button onclick="checkAnswer(0)">A</button>
+<button onclick="checkAnswer(1)">B</button>
+<button onclick="checkAnswer(2)">C</button>
+
+<p id="result"></p>
+
 <script>
 
 let questions = [
@@ -24,9 +41,10 @@ let score = 0;
 function loadQuestion() {
 
   if (currentQuestion >= questions.length) {
-    document.getElementById("question").innerHTML = "Quiz ya kare!";
-    document.getElementById("result").innerHTML =
-      "Score dinka: " + score + " / " + questions.length;
+    document.getElementById("question").innerHTML =
+      "Quiz ya kare! Score dinka: " + score + " / " + questions.length;
+
+    document.getElementById("result").innerHTML = "";
     return;
   }
 
@@ -52,4 +70,7 @@ function checkAnswer(index) {
 
 loadQuestion();
 
-    </script>
+</script>
+
+</body>
+</html>
