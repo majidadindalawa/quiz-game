@@ -1,87 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quiz App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Majidadin Quiz App</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #0f172a;
+  color: white;
+}
 
-    .app {
-      background: white;
-      width: 95%;
-      max-width: 380px;
-      padding: 25px;
-      border-radius: 25px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-      text-align: center;
-      animation: fadeIn 0.5s ease-in-out;
-    }
+.app {
+  margin-top: 50px;
+}
 
-    h2 {
-      margin-top: 0;
-    }
+button {
+  display: block;
+  width: 200px;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
 
-    #timer {
-      color: red;
-      font-weight: bold;
-    }
-
-    #highScore {
-      color: green;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 15px;
-      font-size: 16px;
-      cursor: pointer;
-      background: #667eea;
-      color: white;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      background: #5a67d8;
-    }
-
-    #result {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-  </style>
+button:hover {
+  background: #1d4ed8;
+}
+</style>
 </head>
+
 <body>
 
-<div class="app" id="quizBox">
-  <h2>🎮 Quiz App</h2>
+<div class="app">
+  <h2>🎮 Majidadin Quiz App</h2>
   <p id="highScore"></p>
   <p id="timer"></p>
   <p id="question"></p>
 
-  <button onclick="checkAnswer(0)">A</button>
-  <button onclick="checkAnswer(1)">B</button>
-  <button onclick="checkAnswer(2)">C</button>
+  <button onclick="checkAnswer(0)" id="btn0"></button>
+  <button onclick="checkAnswer(1)" id="btn1"></button>
+  <button onclick="checkAnswer(2)" id="btn2"></button>
 
   <p id="result"></p>
 </div>
@@ -112,14 +75,12 @@ let timeLeft = 10;
 let timerInterval;
 
 let highScore = localStorage.getItem("highScore") || 0;
-document.getElementById("highScore").innerHTML =
-  "🏆 High Score: " + highScore;
+document.getElementById("highScore").innerHTML = "🏆 High Score: " + highScore;
 
 function startTimer() {
   timeLeft = 10;
-  document.getElementById("timer").innerHTML =
-    "⏳ " + timeLeft + "s";
+  document.getElementById("timer").innerHTML = "⏳ " + timeLeft + "s";
 
   timerInterval = setInterval(function() {
     timeLeft--;
-    document.getElementById("timer").innerHTML =
+    document.getElement
