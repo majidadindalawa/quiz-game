@@ -1,22 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quiz Game Pro</title>
+  <title>Quiz App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #4e73df, #1cc88a);
-      text-align: center;
-      color: white;
-      padding: 40px;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .quiz-box {
+    .app {
       background: white;
-      color: black;
+      width: 95%;
+      max-width: 380px;
       padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    #timer {
+      color: red;
+      font-weight: bold;
+    }
+
+    #highScore {
+      color: green;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border: none;
       border-radius: 15px;
-      width: 90%;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 10px 25px rgba
+      font-size: 16px;
+      cursor: pointer;
+      background: #667eea;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #5a67d8;
+    }
+
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app" id="quizBox">
+  <h2>🎮 Quiz App</h2>
+  <p id="highScore"></p>
+  <p id="timer"></p>
+  <p id="question"></p>
+
+  <button onclick="checkAnswer(0)">A</button>
+  <button onclick="checkAnswer(1)">B</button>
+  <button onclick="checkAnswer(2)">C</button>
+
+  <p id="result"></p>
+</div>
+
+<script>
+
+let questions = [
+  {
+    question: "1. Wace kasa ce babban birnin Nigeria?",
+    options: ["A. Lagos", "B. Abuja", "C. Kano"],
+    correct: 1
+  },
+  {
+    question: "2. 5 + 3 = ?",
+    options: ["A. 6", "B. 8", "C. 10"],
+    correct: 1
+  },
+  {
+    question: "3. Wane launi ne sama?",
+    options: ["A. Blue", "B. Green", "C. Red"],
+    correct: 0
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 10;
+let timerInterval;
+
+let highScore = localStorage.getItem("highScore") || 0;
+document.getElementById("highScore").innerHTML =
+  "🏆 High Score: " + highScore;
+
+function startTimer() {
+  timeLeft = 10;
+  document.getElementById("timer").innerHTML =
+    "⏳ " + timeLeft + "s";
+
+  timerInterval = setInterval(function() {
+    timeLeft--;
+    document.getElementById("timer").innerHTML =
