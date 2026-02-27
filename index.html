@@ -1,165 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Majidadin Quiz App</title>
-
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: #0f172a;
-  color: white;
-}
-
-.app {
-  margin-top: 50px;
-}
-
-button {
-  display: block;
-  width: 220px;
-  margin: 10px auto;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1d4ed8;
-}
-</style>
+  <title>Islamic Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .btn {
+      display: block;
+      margin: 8px auto;
+      padding: 10px;
+      width: 200px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: darkgreen;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="app">
-  <h2>🎮 Majidadin Quiz App</h2>
-  <p id="highScore"></p>
-  <p id="timer"></p>
-  <p id="question"></p>
+<h1>Islamic Quiz Game</h1>
 
-  <button onclick="checkAnswer(0)" id="btn0"></button>
-  <button onclick="checkAnswer(1)" id="btn1"></button>
-  <button onclick="checkAnswer(2)" id="btn2"></button>
-
-  <p id="result"></p>
-</div>
+<div class="question" id="question"></div>
+<div id="answers"></div>
+<h3 id="score"></h3>
 
 <script>
-
-let questions = [
-
-{ question: "1. Wace kasa ce babban birnin Nigeria?", options: ["A. Lagos", "B. Abuja", "C. Kano"], correct: 1 },
-{ question: "2. 5 + 3 = ?", options: ["A. 6", "B. 8", "C. 10"], correct: 1 },
-{ question: "3. Wane launi ne sama?", options: ["A. Blue", "B. Green", "C. Red"], correct: 0 },
-{ question: "4. 10 - 4 = ?", options: ["A. 6", "B. 5", "C. 4"], correct: 0 },
-{ question: "5. Sunan shugaban Nigeria?", options: ["A. Tinubu", "B. Buhari", "C. Jonathan"], correct: 0 },
-{ question: "6. 9 x 2 = ?", options: ["A. 18", "B. 16", "C. 20"], correct: 0 },
-{ question: "7. Wace rana ce bayan Monday?", options: ["A. Sunday", "B. Tuesday", "C. Friday"], correct: 1 },
-{ question: "8. 15 ÷ 3 = ?", options: ["A. 4", "B. 5", "C. 6"], correct: 1 },
-{ question: "9. Babban birnin Ghana?", options: ["A. Accra", "B. Lagos", "C. Nairobi"], correct: 0 },
-{ question: "10. 7 + 6 = ?", options: ["A. 12", "B. 13", "C. 14"], correct: 1 },
-
-{ question: "11. 12 x 2 = ?", options: ["A. 24", "B. 22", "C. 20"], correct: 0 },
-{ question: "12. Wace nahiyar Nigeria take?", options: ["A. Asia", "B. Africa", "C. Europe"], correct: 1 },
-{ question: "13. 100 ÷ 10 = ?", options: ["A. 5", "B. 20", "C. 10"], correct: 2 },
-{ question: "14. Launin ciyawa?", options: ["A. Green", "B. Blue", "C. Red"], correct: 0 },
-{ question: "15. 3 x 3 = ?", options: ["A. 6", "B. 9", "C. 12"], correct: 1 },
-{ question: "16. Wace wata ce ta farko?", options: ["A. January", "B. March", "C. June"], correct: 0 },
-{ question: "17. 20 - 5 = ?", options: ["A. 10", "B. 15", "C. 12"], correct: 1 },
-{ question: "18. 8 x 5 = ?", options: ["A. 40", "B. 35", "C. 30"], correct: 0 },
-{ question: "19. Babban birnin USA?", options: ["A. New York", "B. Washington DC", "C. Texas"], correct: 1 },
-{ question: "20. 50 ÷ 5 = ?", options: ["A. 5", "B. 10", "C. 15"], correct: 1 },
-
-{ question: "21. 6 + 9 = ?", options: ["A. 14", "B. 15", "C. 16"], correct: 1 },
-{ question: "22. 14 - 7 = ?", options: ["A. 7", "B. 6", "C. 8"], correct: 0 },
-{ question: "23. 4 x 4 = ?", options: ["A. 12", "B. 16", "C. 14"], correct: 1 },
-{ question: "24. 81 ÷ 9 = ?", options: ["A. 8", "B. 7", "C. 9"], correct: 2 },
-{ question: "25. Wace kasa ce Kenya take?", options: ["A. Africa", "B. Asia", "C. Europe"], correct: 0 },
-{ question: "26. 11 + 11 = ?", options: ["A. 20", "B. 22", "C. 24"], correct: 1 },
-{ question: "27. 30 - 10 = ?", options: ["A. 20", "B. 15", "C. 10"], correct: 0 },
-{ question: "28. 5 x 5 = ?", options: ["A. 20", "B. 25", "C. 30"], correct: 1 },
-{ question: "29. 60 ÷ 6 = ?", options: ["A. 10", "B. 12", "C. 8"], correct: 0 },
-{ question: "30. Wace rana ce kafin Friday?", options: ["A. Wednesday", "B. Thursday", "C. Sunday"], correct: 1 }
-
+const quiz = [
+  {
+    question: "Wane ne Annabi na farko?",
+    answers: ["Annabi Musa", "Annabi Adam", "Annabi Isa", "Annabi Nuh"],
+    correct: 1
+  },
+  {
+    question: "Yaya adadin Rukunan Musulunci?",
+    answers: ["4", "5", "6", "3"],
+    correct: 1
+  },
+  {
+    question: "Ina aka saukar da Al-Qur'ani?",
+    answers: ["Makka", "Madina", "Taif", "Jidda"],
+    correct: 0
+  }
 ];
 
 let currentQuestion = 0;
 let score = 0;
-let timeLeft = 10;
-let timerInterval;
-
-let highScore = localStorage.getItem("highScore") || 0;
-document.getElementById("highScore").innerHTML = "🏆 High Score: " + highScore;
-
-function startTimer() {
-  timeLeft = 10;
-  document.getElementById("timer").innerHTML = "⏳ " + timeLeft + "s";
-
-  timerInterval = setInterval(function() {
-    timeLeft--;
-    document.getElementById("timer").innerHTML = "⏳ " + timeLeft + "s";
-
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      nextQuestion();
-    }
-  }, 1000);
-}
 
 function loadQuestion() {
-  let q = questions[currentQuestion];
-  document.getElementById("question").innerHTML = q.question;
-  document.getElementById("btn0").innerHTML = q.options[0];
-  document.getElementById("btn1").innerHTML = q.options[1];
-  document.getElementById("btn2").innerHTML = q.options[2];
-  document.getElementById("result").innerHTML = "";
-  startTimer();
+  const q = quiz[currentQuestion];
+  document.getElementById("question").innerText = q.question;
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  q.answers.forEach((answer, index) => {
+    const button = document.createElement("button");
+    button.innerText = answer;
+    button.className = "btn";
+    button.onclick = () => checkAnswer(index);
+    answersDiv.appendChild(button);
+  });
 }
 
 function checkAnswer(index) {
-  clearInterval(timerInterval);
-
-  if (index === questions[currentQuestion].correct) {
+  if (index === quiz[currentQuestion].correct) {
     score++;
-    document.getElementById("result").innerHTML = "✅ Correct!";
+    alert("Daidai ne!");
   } else {
-    document.getElementById("result").innerHTML = "❌ Wrong!";
+    alert("Ba daidai ba!");
   }
-
-  setTimeout(nextQuestion, 1000);
-}
-
-function nextQuestion() {
   currentQuestion++;
-
-  if (currentQuestion < questions.length) {
+  if (currentQuestion < quiz.length) {
     loadQuestion();
   } else {
-    endGame();
-  }
-}
-
-function endGame() {
-  document.getElementById("question").innerHTML = "Game Over! Score: " + score;
-  document.getElementById("timer").innerHTML = "";
-  document.getElementById("btn0").style.display = "none";
-  document.getElementById("btn1").style.display = "none";
-  document.getElementById("btn2").style.display = "none";
-
-  if (score > highScore) {
-    localStorage.setItem("highScore", score);
-    document.getElementById("highScore").innerHTML = "🏆 High Score: " + score;
+    document.body.innerHTML = "<h2>Game ya ƙare!</h2><h3>Score: " + score + "/" + quiz.length + "</h3>";
   }
 }
 
 loadQuestion();
-
 </script>
 
 </body>
-    </html>
+  </html>
