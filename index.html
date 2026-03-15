@@ -1,55 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Islamic Quiz Game</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: Arial; text-align:center; background-color:#f2f2f2; padding:20px; }
-    .question { font-size:18px; margin-bottom:15px; }
-    .btn { display:block; margin:8px auto; padding:10px; width:220px; background-color:green; color:white; border:none; cursor:pointer; }
-    .btn:hover { background-color:darkgreen; }
-    #score { font-size:20px; margin-top:15px; }
-  </style>
+<title>Islamic Quiz Game</title>
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:#f2f2f2;
+}
+button{
+display:block;
+margin:10px auto;
+padding:10px 20px;
+background:green;
+color:white;
+border:none;
+font-size:16px;
+}
+</style>
 </head>
+
 <body>
 
 <h1>Islamic Quiz Game</h1>
-<div class="question" id="question"></div>
-<div id="answers"></div>
-<h3 id="score"></h3>
+
+<h3 id="question"></h3>
+
+<button onclick="checkAnswer(0)" id="a"></button>
+<button onclick="checkAnswer(1)" id="b"></button>
+<button onclick="checkAnswer(2)" id="c"></button>
+<button onclick="checkAnswer(3)" id="d"></button>
+
+<p id="score"></p>
 
 <script>
-const quiz = [
-  {question:"Wane ne Annabi na farko?",answers:["Annabi Musa","Annabi Adam","Annabi Isa","Annabi Nuh"],correct:1},
-  {question:"Yaya adadin Rukunan Musulunci?",answers:["4","5","6","3"],correct:1},
-  {question:"Yaya adadin Rukunan Imani?",answers:["5","6","7","4"],correct:1},
-  {question:"Wace rana ce Juma'a?",answers:["Ranar ibada","Ranar azumi","Ranar aiki","Ranar wasa"],correct:0},
-  {question:"A ina aka haifi Annabi Muhammad (SAW)?",answers:["Makka","Madina","Taif","Jidda"],correct:0},
-  {question:"Sunayen Sahabbai nawa suka yi hijira zuwa Habasha?",answers:["10","15","20","30"],correct:1},
-  {question:"Wane mala'ika ne ya kawo wahayi?",answers:["Jibril","Mika'il","Israfil","Malakul Maut"],correct:0},
-  {question:"Wace sura ce ta farko a Al-Qur'ani?",answers:["Al-Baqarah","Al-Fatiha","Yasin","Ikhlas"],correct:1},
-  {question:"Sau nawa ake sallah a rana?",answers:["3","4","5","6"],correct:2},
-  {question:"Wane ne Annabi na ƙarshe?",answers:["Isa","Muhammad","Musa","Nuh"],correct:1},
-  {question:"Mene ne kalmar shahada?",answers:["La ilaaha illallah","Allahu Akbar","Subhanallah","Alhamdulillah"],correct:0},
-  {question:"Adadin surori a Al-Qur'ani?",answers:["114","110","120","100"],correct:0},
-  {question:"Wane ibada ake yi Ramadan?",answers:["Sallah","Azumi","Hajj","Zakat"],correct:1},
-  {question:"Wane ne uban Annabi Isa?",answers:["Zakariyya","Yusuf","Muhammad","Musa"],correct:0},
-  {question:"Wane lokaci ake yin sallar Asuba?",answers:["Da safe","Da rana","Da yamma","Da dare"],correct:0},
-  {question:"Surar Al-Fatiha tana da aya nawa?",answers:["6","7","5","8"],correct:1},
-  {question:"Mene ne sunnah?",answers:["Abin da Annabi ya yi","Abin da muke so","Ibadar da ba tilas ba","Tsohuwar al'ada"],correct:0},
-  {question:"Mene ne wajib?",answers:["Tilas","Zabi","Ba tilas ba","Ibadar kai tsaye"],correct:0},
-  {question:"Wace sallah ake yi da safe kafin rana ta fito?",answers:["Fajr","Dhuhr","Asr","Maghrib"],correct:0},
-  {question:"Wane mala'ika ne ke daukar rai?",answers:["Malakul Maut","Jibril","Mika'il","Israfil"],correct:0},
-  {question:"Adadin raka'a na Sallar Dhuhr?",answers:["4","2","3","5"],correct:0},
-  {question:"Adadin raka'a na Sallar Asr?",answers:["4","2","3","5"],correct:0},
-  {question:"Adadin raka'a na Sallar Maghrib?",answers:["3","4","2","5"],correct:0},
-  {question:"Adadin raka'a na Sallar Isha?",answers:["4","2","3","5"],correct:0},
-  {question:"Adadin raka'a na Sallar Fajr?",answers:["2","4","3","5"],correct:0},
-  {question:"Wace sura ce ake karanta a Sallar Fajr?",answers:["Al-Fatiha da wani sura","Al-Baqarah","Yasin","Ikhlas"],correct:0},
-  {question:"Mene ne Zakat?",answers:["Sadaka tilas","Sadaqa na son rai","Sadaqa ga iyaye","Ibadar kai tsaye"],correct:0},
-  {question:"Mene ne Hajj?",answers:["Ziyarar Makka","Sallar dare","Azumin Ramadan","Karanta Qur'ani"],correct:0},
-  {question:"Wane lokaci ake yin Sallar Jumma'a?",answers:["Jumma'a","Asuba","Yamma","Rana"],correct:0},
-  {question:"Mene ne Sadaqa?",answers:["Sadaka na son rai","Tilas","Azumi","Sallar dare"],correct:0},
-  {question:"Wane Annabi ne aka yi masa Tafsir na Al-Kitab?",answers:["Musa","Muhammad","Isa","Nuh"],correct:0},
-  {question:"Mene ne Shahada?",answers:["La ilaaha illallah Muhammadur Rasulullah","Allahu Akbar","Subhanallah","Alhamdulillah"],correct:0},
-  {question:"Wane ne Annabi Musa?",answers:["Annabi","Kawance","Sarki","Mai azumi"],correct:0},
+
+let questions = [
+{
+q:"Wane ne Annabi na farko?",
+a:["Annabi Musa","Annabi Adam","Annabi Isa","Annabi Nuh"],
+correct:1
+},
+{
+q:"A ina aka saukar da Alkur'ani?",
+a:["Makka","Madina","Taif","Yemen"],
+correct:0
+},
+{
+q:"Wane ne Manzon Allah?",
+a:["Musa","Isa","Muhammad (SAW)","Nuh"],
+correct:2
+}
+];
+
+let current=0;
+let score=0;
+
+function loadQuestion(){
+
+document.getElementById("question").innerHTML = questions[current].q;
+
+document.getElementById("a").innerHTML = questions[current].a[0];
+document.getElementById("b").innerHTML = questions[current].a[1];
+document.getElementById("c").innerHTML = questions[current].a[2];
+document.getElementById("d").innerHTML = questions[current].a[3];
+
+}
+
+function checkAnswer(i){
+
+if(i == questions[current].correct){
+score++;
+}
+
+current++;
+
+if(current < questions.length){
+loadQuestion();
+}else{
+document.body.innerHTML="<h1>Game Finished</h1><h2>Your Score: "+score+"</h2>";
+}
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+  </html>
