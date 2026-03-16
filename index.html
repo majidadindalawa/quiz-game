@@ -36,56 +36,47 @@ font-size:16px;
 <script>
 
 let questions = [
-{
-q:"Wane ne Annabi na farko?",
-a:["Annabi Musa","Annabi Adam","Annabi Isa","Annabi Nuh"],
-correct:1
-},
-{
-q:"A ina aka saukar da Alkur'ani?",
-a:["Makka","Madina","Taif","Yemen"],
-correct:0
-},
-{
-q:"Wane ne Manzon Allah?",
-a:["Musa","Isa","Muhammad (SAW)","Nuh"],
-correct:2
-}
-];
 
-let current=0;
-let score=0;
+{q:"Wane ne Annabi na farko?",a:["Annabi Musa","Annabi Adam","Annabi Isa","Annabi Nuh"],correct:1},
+{q:"Wane ne Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
+{q:"A ina aka saukar da Alkur'ani?",a:["Makka","Madina","Taif","Yemen"],correct:0},
+{q:"Sallah nawa Musulmi ke yi a rana?",a:["3","4","5","6"],correct:2},
+{q:"Wane watan ake yin azumin Ramadan?",a:["Sha'aban","Ramadan","Shawwal","Rajab"],correct:1},
+{q:"Wane ne uban Annabawa?",a:["Ibrahim","Musa","Isa","Nuh"],correct:0},
+{q:"Surah mafi tsawo a Alkur'ani?",a:["Al-Baqarah","Yasin","Ikhlas","Falaq"],correct:0},
+{q:"Surah mafi guntu?",a:["Ikhlas","Kauthar","Nas","Falaq"],correct:1},
+{q:"Wane mala'ika ke kawo wahayi?",a:["Jibril","Mika'il","Israfil","Malakul maut"],correct:0},
+{q:"Annabi Musa ya raba wane teku?",a:["Red Sea","Nile","Atlantic","Indian"],correct:0},
 
-function loadQuestion(){
+{q:"Wane gari aka haifi Annabi Muhammad (SAW)?",a:["Madina","Makka","Taif","Baghdad"],correct:1},
+{q:"Uwar Annabi Muhammad (SAW) ita ce?",a:["Amina","Khadija","Aisha","Fatima"],correct:0},
+{q:"Sunen mahaifin Annabi?",a:["Abdullah","Abu Talib","Umar","Ali"],correct:0},
+{q:"Wane sahabi ne khalifa na farko?",a:["Umar","Abu Bakr","Ali","Uthman"],correct:1},
+{q:"Khalifa na biyu?",a:["Umar","Ali","Uthman","Abu Bakr"],correct:0},
+{q:"Khalifa na uku?",a:["Ali","Umar","Uthman","Abu Bakr"],correct:2},
+{q:"Khalifa na hudu?",a:["Ali","Umar","Uthman","Abu Bakr"],correct:0},
+{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Zainab"],correct:1},
+{q:"Wane ne dan Annabi?",a:["Ibrahim","Umar","Ali","Usman"],correct:0},
+{q:"Yaya ake kiran kiran sallah?",a:["Adhan","Iqama","Takbir","Tasbih"],correct:0},
 
-document.getElementById("question").innerHTML = questions[current].q;
+{q:"Sallah ta farko a rana?",a:["Maghrib","Fajr","Isha","Asr"],correct:1},
+{q:"Sallah ta karshe?",a:["Isha","Maghrib","Asr","Fajr"],correct:0},
+{q:"Gidan Allah yana ina?",a:["Makka","Madina","Jerusalem","Taif"],correct:0},
+{q:"Sunan gidan Allah?",a:["Ka'aba","Masjid","Minar","Mihrab"],correct:0},
+{q:"Annabi da aka jefa cikin wuta?",a:["Ibrahim","Musa","Isa","Yusuf"],correct:0},
+{q:"Annabi da aka hadiye shi da kifi?",a:["Yunus","Musa","Isa","Adam"],correct:0},
+{q:"Annabi da aka sayar da shi?",a:["Yusuf","Musa","Isa","Nuh"],correct:0},
+{q:"Annabi na farko bayan Adam?",a:["Idris","Nuh","Hud","Salih"],correct:0},
+{q:"Annabi na karshe?",a:["Muhammad (SAW)","Isa","Musa","Nuh"],correct:0},
+{q:"Mala'ikan mutuwa?",a:["Izra'il","Jibril","Mika'il","Israfil"],correct:0},
 
-document.getElementById("a").innerHTML = questions[current].a[0];
-document.getElementById("b").innerHTML = questions[current].a[1];
-document.getElementById("c").innerHTML = questions[current].a[2];
-document.getElementById("d").innerHTML = questions[current].a[3];
-
-}
-
-function checkAnswer(i){
-
-if(i == questions[current].correct){
-score++;
-}
-
-current++;
-
-if(current < questions.length){
-loadQuestion();
-}else{
-document.body.innerHTML="<h1>Game Finished</h1><h2>Your Score: "+score+"</h2>";
-}
-
-}
-
-loadQuestion();
-
-</script>
-
-</body>
-  </html>
+{q:"Littafin Musulunci?",a:["Qur'an","Bible","Torah","Zabur"],correct:0},
+{q:"Annabi Musa ya karbi?",a:["Torah","Qur'an","Bible","Zabur"],correct:0},
+{q:"Annabi Dawud ya karbi?",a:["Zabur","Torah","Qur'an","Bible"],correct:0},
+{q:"Annabi Isa ya karbi?",a:["Injil","Torah","Qur'an","Zabur"],correct:0},
+{q:"Azumi nawa ake yi a Ramadan?",a:["29 ko 30","10","15","20"],correct:0},
+{q:"Sallar Juma'a ana yi ne?",a:["Jumma'a","Litinin","Talata","Laraba"],correct:0},
+{q:"Hijira ta faru daga?",a:["Makka zuwa Madina","Madina zuwa Makka","Taif zuwa Makka","Yemen zuwa Makka"],correct:0},
+{q:"Shekarar hijira?",a:["622","500","700","800"],correct:0},
+{q:"Hajj ana yin sa a?",a:["Dhul Hijjah","Ramadan","Shawwal","Rajab"],correct:0},
+{q:"Zakka tana daga cikin?",a:["Rukunin Musulunci","Sunn
