@@ -8,7 +8,7 @@ h1{margin-bottom:10px;}
 button{display:block;margin:10px auto;padding:12px 25px;background:#00c853;color:white;border:none;border-radius:10px;font-size:16px;width:220px;}
 button:hover{background:#00a844;}
 .card{background:white;color:black;padding:20px;border-radius:15px;max-width:350px;margin:auto;box-shadow:0 0 10px rgba(0,0,0,0.3);}
-#score,#timer{margin-top:10px;font-size:18px;}
+#score,#timer,#leaderboard{margin-top:10px;font-size:18px;}
 </style>
 </head>
 <body>
@@ -25,13 +25,14 @@ button:hover{background:#00a844;}
 <div id="quiz"></div>
 <div id="score"></div>
 <div id="timer"></div>
+<div id="leaderboard"></div>
 
 <!-- Sounds -->
 <audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 <audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
 <script>
-// Sample 100 questions (add more if needed)
+// Sample 100 questions
 let allQuestions = [
 {q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
 {q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
@@ -48,7 +49,21 @@ let allQuestions = [
 
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
-let questions=[], current=0, score=0, timer, timeLeft=15; // 15 seconds per question
+let questions=[], current=0, score=0, timer, timeLeft=15; 
+
+// Get leaderboard from localStorage
+let leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
+
+function updateLeaderboard(){
+if(leaderboard.length===0) return;
+let html="<h3>🏆 Highscores</h3><ol>";
+leaderboard.sort((a,b)=>b-a);
+leaderboard.slice(0,5).forEach(s=>{html+="<li>"+s+"</li>";});
+html+="</ol>";
+document.getElementById("leaderboard").innerHTML=html;
+}
+
+updateLeaderboard();
 
 function startGame(num){
 document.getElementById("menu").style.display="none";
@@ -61,6 +76,10 @@ function show(){
 if(current>=questions.length){
 clearInterval(timer);
 document.getElementById("quiz").innerHTML="<div class='card'><h2>Finished 🎉</h2><h3>Score: "+score+"/"+questions.length+"</h3><button onclick='location.reload()'>Play Again</button></div>";
+
+leaderboard.push(score);
+localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboard));
+updateLeaderboard();
 document.getElementById("timer").innerHTML="";
 return;
 }
@@ -73,7 +92,7 @@ html+="</div>";
 document.getElementById("quiz").innerHTML=html;
 document.getElementById("score").innerHTML="Score: "+score;
 
-timeLeft = 15; // reset timer per question
+timeLeft = 15; 
 document.getElementById("timer").innerHTML="Time left: "+timeLeft+"s";
 clearInterval(timer);
 timer = setInterval(function(){
