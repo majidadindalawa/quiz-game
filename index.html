@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Islamic Quiz Game</title>
@@ -17,9 +17,9 @@ button:hover{background:#00a844;}
 
 <div id="menu">
 <h2>Select Level</h2>
-<button onclick="startGame(20,30)">Easy (30s)</button>
-<button onclick="startGame(50,20)">Medium (20s)</button>
-<button onclick="startGame(100,15)">Hard (15s)</button>
+<button onclick="startGame('easy')">Easy</button>
+<button onclick="startGame('medium')">Medium</button>
+<button onclick="startGame('hard')">Hard</button>
 </div>
 
 <div id="quiz"></div>
@@ -32,25 +32,20 @@ button:hover{background:#00a844;}
 <audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
 <script>
-// 100 Islamic Questions (example subset, can expand fully)
+// 100 Questions with per-question timer (seconds)
 let allQuestions = [
-{q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
-{q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
-{q:"Sallah nawa a rana?",a:["3","4","5","6"],correct:2},
-{q:"Inda Ka'aba take?",a:["Makka","Madina","Taif","Yemen"],correct:0},
-{q:"Mala'ikan wahayi?",a:["Jibril","Mika'il","Israfil","Izra'il"],correct:0},
-{q:"Khalifa na farko?",a:["Umar","Abu Bakr","Ali","Usman"],correct:1},
-{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Fatima"],correct:1},
-{q:"Azumi ana yi a?",a:["Ramadan","Shawwal","Rajab","Safar"],correct:0},
-{q:"Surah mafi tsawo?",a:["Baqarah","Ikhlas","Nas","Falaq"],correct:0},
-{q:"Annabi da kifi ya hadiye?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
-// ... continue until 100 questions
-{q:"Sarkin farko a Musulunci?",a:["Abu Bakr","Umar","Ali","Usman"],correct:0}
+{q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1,time:30},
+{q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2,time:30},
+{q:"Sallah nawa a rana?",a:["3","4","5","6"],correct:2,time:25},
+{q:"Inda Ka'aba take?",a:["Makka","Madina","Taif","Yemen"],correct:0,time:30},
+{q:"Mala'ikan wahayi?",a:["Jibril","Mika'il","Israfil","Izra'il"],correct:0,time:25},
+// ... continue until 100 questions with time field
+{q:"Sarkin farko a Musulunci?",a:["Abu Bakr","Umar","Ali","Usman"],correct:0,time:20}
 ];
 
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
-let questions=[], current=0, score=0, timer, timeLeft=15;
+let questions=[], current=0, score=0, timer, timeLeft=0;
 let leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
 
 function updateLeaderboard(){
@@ -63,11 +58,10 @@ document.getElementById("leaderboard").innerHTML=html;
 }
 updateLeaderboard();
 
-function startGame(num, seconds){
+function startGame(level){
 document.getElementById("menu").style.display="none";
-questions = shuffle(allQuestions).slice(0,num);
+questions = shuffle(allQuestions);
 current=0; score=0;
-timeLeft = seconds;
 showQuestion();
 }
 
@@ -89,6 +83,7 @@ html+="</div>";
 document.getElementById("quiz").innerHTML=html;
 document.getElementById("score").innerHTML="Score: "+score;
 
+timeLeft = q.time; // per question timer
 clearInterval(timer);
 document.getElementById("timer").innerHTML="Time left: "+timeLeft+"s";
 timer=setInterval(function(){
