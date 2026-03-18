@@ -1,56 +1,16 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <title>Islamic Quiz Game</title>
-
 <style>
-body{
-font-family:Arial;
-text-align:center;
-background:linear-gradient(to right,#0f2027,#2c5364);
-color:white;
-margin:0;
-padding:20px;
-}
-
-h1{
-margin-bottom:10px;
-}
-
-button{
-display:block;
-margin:10px auto;
-padding:12px 25px;
-background:#00c853;
-color:white;
-border:none;
-border-radius:10px;
-font-size:16px;
-width:200px;
-}
-
-button:hover{
-background:#00a844;
-}
-
-.card{
-background:white;
-color:black;
-padding:20px;
-border-radius:15px;
-max-width:300px;
-margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
-#score{
-margin-top:10px;
-font-size:18px;
-}
+body{font-family:Arial;text-align:center;background:linear-gradient(to right,#0f2027,#2c5364);color:white;margin:0;padding:20px;}
+h1{margin-bottom:10px;}
+button{display:block;margin:10px auto;padding:12px 25px;background:#00c853;color:white;border:none;border-radius:10px;font-size:16px;width:200px;}
+button:hover{background:#00a844;}
+.card{background:white;color:black;padding:20px;border-radius:15px;max-width:300px;margin:auto;box-shadow:0 0 10px rgba(0,0,0,0.3);}
+#score{margin-top:10px;font-size:18px;}
 </style>
-
 </head>
-
 <body>
 
 <h1>🕌 Islamic Quiz Game</h1>
@@ -65,8 +25,12 @@ font-size:18px;
 <div id="quiz"></div>
 <div id="score"></div>
 
-<script>
+<!-- ✅ Automatic sounds -->
+<audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
+<script>
+// Questions
 let allQuestions = [
 {q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
 {q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
@@ -80,55 +44,37 @@ let allQuestions = [
 {q:"Annabi na ƙarshe?",a:["Muhammad","Isa","Musa","Nuh"],correct:0}
 ];
 
-// shuffle
-function shuffle(arr){
-for(let i=arr.length-1;i>0;i--){
-let j=Math.floor(Math.random()*(i+1));
-[arr[i],arr[j]]=[arr[j],arr[i]];
-}
-return arr;
-}
+// Shuffle function
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
-let questions=[];
-let current=0;
-let score=0;
+let questions=[], current=0, score=0;
 
 function startGame(num){
 document.getElementById("menu").style.display="none";
 questions = shuffle(allQuestions).slice(0,num);
-current=0;
-score=0;
+current=0; score=0;
 show();
 }
 
 function show(){
 if(current>=questions.length){
-document.getElementById("quiz").innerHTML=
-"<div class='card'><h2>Finished 🎉</h2><h3>Score: "+score+"/"+questions.length+"</h3><button onclick='location.reload()'>Play Again</button></div>";
+document.getElementById("quiz").innerHTML="<div class='card'><h2>Finished 🎉</h2><h3>Score: "+score+"/"+questions.length+"</h3><button onclick='location.reload()'>Play Again</button></div>";
 return;
 }
-
 let q=questions[current];
-
-let html="<div class='card'>";
-html+="<h3>"+q.q+"</h3>";
-
-q.a.forEach((opt,i)=>{
-html+="<button onclick='check("+i+")'>"+opt+"</button>";
-});
-
+let html="<div class='card'><h3>"+q.q+"</h3>";
+q.a.forEach((opt,i)=>{html+="<button onclick='check("+i+")'>"+opt+"</button>";});
 html+="</div>";
-
 document.getElementById("quiz").innerHTML=html;
 document.getElementById("score").innerHTML="Score: "+score;
 }
 
 function check(i){
+if(i===questions[current].correct) document.getElementById("correctSound").play(); else document.getElementById("wrongSound").play();
 if(i===questions[current].correct) score++;
 current++;
 show();
 }
-
 </script>
 
 </body>
