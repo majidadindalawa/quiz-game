@@ -17,9 +17,9 @@ button:hover{background:#00a844;}
 
 <div id="menu">
 <h2>Select Level</h2>
-<button onclick="startGame(20,20)">Easy (20s)</button>
-<button onclick="startGame(50,15)">Medium (15s)</button>
-<button onclick="startGame(100,10)">Hard (10s)</button>
+<button onclick="startGame(20,30)">Easy (30s)</button>
+<button onclick="startGame(50,20)">Medium (20s)</button>
+<button onclick="startGame(100,15)">Hard (15s)</button>
 </div>
 
 <div id="quiz"></div>
@@ -32,7 +32,7 @@ button:hover{background:#00a844;}
 <audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
 <script>
-// ✅ 100 Islamic Questions
+// 100 Islamic Questions (example subset, can expand fully)
 let allQuestions = [
 {q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
 {q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
@@ -44,11 +44,10 @@ let allQuestions = [
 {q:"Azumi ana yi a?",a:["Ramadan","Shawwal","Rajab","Safar"],correct:0},
 {q:"Surah mafi tsawo?",a:["Baqarah","Ikhlas","Nas","Falaq"],correct:0},
 {q:"Annabi da kifi ya hadiye?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
-// (Add remaining questions up to 100)
+// ... continue until 100 questions
 {q:"Sarkin farko a Musulunci?",a:["Abu Bakr","Umar","Ali","Usman"],correct:0}
 ];
 
-// Shuffle helper
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
 let questions=[], current=0, score=0, timer, timeLeft=15;
@@ -62,7 +61,6 @@ leaderboard.slice(0,5).forEach(s=>{html+="<li>"+s+"</li>";});
 html+="</ol>";
 document.getElementById("leaderboard").innerHTML=html;
 }
-
 updateLeaderboard();
 
 function startGame(num, seconds){
