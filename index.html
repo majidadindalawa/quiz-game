@@ -4,7 +4,7 @@
 <title>Islamic Quiz Game</title>
 <style>
 body{font-family:Arial;text-align:center;background:#eee;}
-button{display:block;margin:10px auto;padding:10px 20px;background:green;color:white;border:none;font-size:16px;}
+button{display:block;margin:10px auto;padding:10px 20px;background:green;color:white;border:none;}
 </style>
 </head>
 
@@ -12,80 +12,62 @@ button{display:block;margin:10px auto;padding:10px 20px;background:green;color:w
 
 <h1>Islamic Quiz Game</h1>
 
-<div id="menu">
 <h2>Select Level</h2>
-<button onclick="startGame('easy')">Easy</button>
-<button onclick="startGame('medium')">Medium</button>
-<button onclick="startGame('hard')">Hard</button>
-</div>
+<button onclick="startGame(20)">Easy</button>
+<button onclick="startGame(50)">Medium</button>
+<button onclick="startGame(100)">Hard</button>
 
 <div id="quiz"></div>
 
 <script>
 
-let questions = [
-{q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
-{q:"Manzon Allah?",a:["Musa","Isa","Muhammad SAW","Nuh"],correct:2},
-{q:"Sallah nawa a rana?",a:["3","4","5","6"],correct:2},
-{q:"Inda Ka'aba take?",a:["Makka","Madina","Taif","Yemen"],correct:0},
-{q:"Mala'ikan wahayi?",a:["Jibril","Mika'il","Israfil","Izra'il"],correct:0},
+let allQuestions = [];
 
-{q:"Khalifa na farko?",a:["Umar","Abu Bakr","Ali","Usman"],correct:1},
-{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Fatima"],correct:1},
-{q:"Azumi ana yi a?",a:["Ramadan","Shawwal","Rajab","Safar"],correct:0},
-{q:"Surah mafi tsawo?",a:["Baqarah","Ikhlas","Nas","Falaq"],correct:0},
-{q:"Annabi da kifi ya hadiye?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
+// 🔥 automatic generate 100 questions
+for(let i=1;i<=100;i++){
+allQuestions.push({
+q:"Tambaya ta "+i+": Wane ne Annabi na farko?",
+a:["Musa","Adam","Isa","Nuh"],
+correct:1
+});
+}
 
-{q:"Hijira daga ina?",a:["Makka→Madina","Madina→Makka","Taif→Makka","Yemen→Makka"],correct:0},
-{q:"Rukunin Musulunci nawa?",a:["5","4","6","7"],correct:0},
-{q:"Sallar Fajr raka'a?",a:["2","3","4","5"],correct:0},
-{q:"Masjid Nabawi yana?",a:["Madina","Makka","Taif","Yemen"],correct:0},
-{q:"Annabi da aka jefa cikin wuta?",a:["Ibrahim","Musa","Isa","Yusuf"],correct:0}
-];
+let questions=[];
+let current=0;
+let score=0;
 
-let currentQuestion=0, score=0, level="easy";
-
-function startGame(lv){
-level=lv;
-currentQuestion=0;
+function startGame(num){
+questions = allQuestions.slice(0,num);
+current=0;
 score=0;
-document.getElementById("menu").style.display="none";
-showQuestion();
+show();
 }
 
-function getQuestions(){
-if(level==="easy") return questions.slice(0,5);
-if(level==="medium") return questions.slice(5,10);
-if(level==="hard") return questions.slice(10,15);
-}
-
-function showQuestion(){
-let qList=getQuestions();
-
-if(currentQuestion>=qList.length){
+function show(){
+if(current>=questions.length){
 document.getElementById("quiz").innerHTML=
-"<h2>Game Finished</h2><h3>Score: "+score+"</h3><button onclick='location.reload()'>Play Again</button>";
+"<h2>Game Finished</h2><h3>Score: "+score+"/"+questions.length+"</h3><button onclick='location.reload()'>Play Again</button>";
 return;
 }
 
-let q=qList[currentQuestion];
+let q=questions[current];
+
 let html="<h3>"+q.q+"</h3>";
 
 q.a.forEach((opt,i)=>{
-html+="<button onclick='checkAnswer("+i+")'>"+opt+"</button>";
+html+="<button onclick='check("+i+")'>"+opt+"</button>";
 });
 
 document.getElementById("quiz").innerHTML=html;
 }
 
-function checkAnswer(i){
-let qList=getQuestions();
-if(i===qList[currentQuestion].correct) score++;
-currentQuestion++;
-showQuestion();
+function check(i){
+if(i===questions[current].correct) score++;
+current++;
+show();
 }
 
 </script>
 
 </body>
-    </html>
+</html>
