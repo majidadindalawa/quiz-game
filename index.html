@@ -3,151 +3,89 @@
 <head>
 <title>Islamic Quiz Game</title>
 <style>
-body{
-font-family:Arial;
-text-align:center;
-background:#f2f2f2;
-}
-button{
-display:block;
-margin:10px auto;
-padding:10px 20px;
-background:green;
-color:white;
-border:none;
-font-size:16px;
-}
+body{font-family:Arial;text-align:center;background:#eee;}
+button{display:block;margin:10px auto;padding:10px 20px;background:green;color:white;border:none;font-size:16px;}
 </style>
 </head>
 
-<body><body>
+<body>
 
 <h1>Islamic Quiz Game</h1>
 
+<div id="menu">
 <h2>Select Level</h2>
-
 <button onclick="startGame('easy')">Easy</button>
 <button onclick="startGame('medium')">Medium</button>
 <button onclick="startGame('hard')">Hard</button>
+</div>
 
 <div id="quiz"></div>
 
 <script>
 
-let currentQuestion = 0;
-let score = 0;
-let level = "easy";
+let questions = [
+{q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
+{q:"Manzon Allah?",a:["Musa","Isa","Muhammad SAW","Nuh"],correct:2},
+{q:"Sallah nawa a rana?",a:["3","4","5","6"],correct:2},
+{q:"Inda Ka'aba take?",a:["Makka","Madina","Taif","Yemen"],correct:0},
+{q:"Mala'ikan wahayi?",a:["Jibril","Mika'il","Israfil","Izra'il"],correct:0},
+
+{q:"Khalifa na farko?",a:["Umar","Abu Bakr","Ali","Usman"],correct:1},
+{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Fatima"],correct:1},
+{q:"Azumi ana yi a?",a:["Ramadan","Shawwal","Rajab","Safar"],correct:0},
+{q:"Surah mafi tsawo?",a:["Baqarah","Ikhlas","Nas","Falaq"],correct:0},
+{q:"Annabi da kifi ya hadiye?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
+
+{q:"Hijira daga ina?",a:["Makka→Madina","Madina→Makka","Taif→Makka","Yemen→Makka"],correct:0},
+{q:"Rukunin Musulunci nawa?",a:["5","4","6","7"],correct:0},
+{q:"Sallar Fajr raka'a?",a:["2","3","4","5"],correct:0},
+{q:"Masjid Nabawi yana?",a:["Madina","Makka","Taif","Yemen"],correct:0},
+{q:"Annabi da aka jefa cikin wuta?",a:["Ibrahim","Musa","Isa","Yusuf"],correct:0}
+];
+
+let currentQuestion=0, score=0, level="easy";
 
 function startGame(lv){
-    level = lv;
-    currentQuestion = 0;
-    score = 0;
-    showQuestion();
+level=lv;
+currentQuestion=0;
+score=0;
+document.getElementById("menu").style.display="none";
+showQuestion();
 }
 
 function getQuestions(){
-    if(level === "easy"){
-        return questions.slice(0,10);
-    }
-    if(level === "medium"){
-        return questions.slice(10,30);
-    }
-    if(level === "hard"){
-        return questions.slice(30,60);
-    }
+if(level==="easy") return questions.slice(0,5);
+if(level==="medium") return questions.slice(5,10);
+if(level==="hard") return questions.slice(10,15);
 }
 
 function showQuestion(){
-    let qList = getQuestions();
+let qList=getQuestions();
 
-    if(currentQuestion >= qList.length){
-        document.getElementById("quiz").innerHTML =
-        "<h2>Game Finished</h2><h3>Your Score: "+score+"</h3><button onclick='location.reload()'>Play Again</button>";
-        return;
-    }
+if(currentQuestion>=qList.length){
+document.getElementById("quiz").innerHTML=
+"<h2>Game Finished</h2><h3>Score: "+score+"</h3><button onclick='location.reload()'>Play Again</button>";
+return;
+}
 
-    let q = qList[currentQuestion];
+let q=qList[currentQuestion];
+let html="<h3>"+q.q+"</h3>";
 
-    let html = "<h3>"+q.q+"</h3>";
+q.a.forEach((opt,i)=>{
+html+="<button onclick='checkAnswer("+i+")'>"+opt+"</button>";
+});
 
-    q.a.forEach((option,i)=>{
-        html += "<button onclick='checkAnswer("+i+")'>"+option+"</button><br><br>";
-    });
-
-    document.getElementById("quiz").innerHTML = html;
+document.getElementById("quiz").innerHTML=html;
 }
 
 function checkAnswer(i){
-    let qList = getQuestions();
-    let q = qList[currentQuestion];
-
-    if(i === q.correct){
-        score++;
-    }
-
-    currentQuestion++;
-    showQuestion();
+let qList=getQuestions();
+if(i===qList[currentQuestion].correct) score++;
+currentQuestion++;
+showQuestion();
 }
 
 </script>
 
 </body>
-
-<h1>Islamic Quiz Game</h1>
-
-<h3 id="question"></h3>
-
-<button onclick="checkAnswer(0)" id="a"></button>
-<button onclick="checkAnswer(1)" id="b"></button>
-<button onclick="checkAnswer(2)" id="c"></button>
-<button onclick="checkAnswer(3)" id="d"></button>
-
-<p id="score"></p>
-
-<script>
-
-let questions = [
-
-{q:"Wane ne Annabi na farko?",a:["Annabi Musa","Annabi Adam","Annabi Isa","Annabi Nuh"],correct:1},
-{q:"Wane ne Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
-{q:"A ina aka saukar da Alkur'ani?",a:["Makka","Madina","Taif","Yemen"],correct:0},
-{q:"Sallah nawa Musulmi ke yi a rana?",a:["3","4","5","6"],correct:2},
-{q:"Wane watan ake yin azumin Ramadan?",a:["Sha'aban","Ramadan","Shawwal","Rajab"],correct:1},
-{q:"Wane ne uban Annabawa?",a:["Ibrahim","Musa","Isa","Nuh"],correct:0},
-{q:"Surah mafi tsawo a Alkur'ani?",a:["Al-Baqarah","Yasin","Ikhlas","Falaq"],correct:0},
-{q:"Surah mafi guntu?",a:["Ikhlas","Kauthar","Nas","Falaq"],correct:1},
-{q:"Wane mala'ika ke kawo wahayi?",a:["Jibril","Mika'il","Israfil","Malakul maut"],correct:0},
-{q:"Annabi Musa ya raba wane teku?",a:["Red Sea","Nile","Atlantic","Indian"],correct:0},
-
-{q:"Wane gari aka haifi Annabi Muhammad (SAW)?",a:["Madina","Makka","Taif","Baghdad"],correct:1},
-{q:"Uwar Annabi Muhammad (SAW) ita ce?",a:["Amina","Khadija","Aisha","Fatima"],correct:0},
-{q:"Sunen mahaifin Annabi?",a:["Abdullah","Abu Talib","Umar","Ali"],correct:0},
-{q:"Wane sahabi ne khalifa na farko?",a:["Umar","Abu Bakr","Ali","Uthman"],correct:1},
-{q:"Khalifa na biyu?",a:["Umar","Ali","Uthman","Abu Bakr"],correct:0},
-{q:"Khalifa na uku?",a:["Ali","Umar","Uthman","Abu Bakr"],correct:2},
-{q:"Khalifa na hudu?",a:["Ali","Umar","Uthman","Abu Bakr"],correct:0},
-{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Zainab"],correct:1},
-{q:"Wane ne dan Annabi?",a:["Ibrahim","Umar","Ali","Usman"],correct:0},
-{q:"Yaya ake kiran kiran sallah?",a:["Adhan","Iqama","Takbir","Tasbih"],correct:0},
-
-{q:"Sallah ta farko a rana?",a:["Maghrib","Fajr","Isha","Asr"],correct:1},
-{q:"Sallah ta karshe?",a:["Isha","Maghrib","Asr","Fajr"],correct:0},
-{q:"Gidan Allah yana ina?",a:["Makka","Madina","Jerusalem","Taif"],correct:0},
-{q:"Sunan gidan Allah?",a:["Ka'aba","Masjid","Minar","Mihrab"],correct:0},
-{q:"Annabi da aka jefa cikin wuta?",a:["Ibrahim","Musa","Isa","Yusuf"],correct:0},
-{q:"Annabi da aka hadiye shi da kifi?",a:["Yunus","Musa","Isa","Adam"],correct:0},
-{q:"Annabi da aka sayar da shi?",a:["Yusuf","Musa","Isa","Nuh"],correct:0},
-{q:"Annabi na farko bayan Adam?",a:["Idris","Nuh","Hud","Salih"],correct:0},
-{q:"Annabi na karshe?",a:["Muhammad (SAW)","Isa","Musa","Nuh"],correct:0},
-{q:"Mala'ikan mutuwa?",a:["Izra'il","Jibril","Mika'il","Israfil"],correct:0},
-
-{q:"Littafin Musulunci?",a:["Qur'an","Bible","Torah","Zabur"],correct:0},
-{q:"Annabi Musa ya karbi?",a:["Torah","Qur'an","Bible","Zabur"],correct:0},
-{q:"Annabi Dawud ya karbi?",a:["Zabur","Torah","Qur'an","Bible"],correct:0},
-{q:"Annabi Isa ya karbi?",a:["Injil","Torah","Qur'an","Zabur"],correct:0},
-{q:"Azumi nawa ake yi a Ramadan?",a:["29 ko 30","10","15","20"],correct:0},
-{q:"Sallar Juma'a ana yi ne?",a:["Jumma'a","Litinin","Talata","Laraba"],correct:0},
-{q:"Hijira ta faru daga?",a:["Makka zuwa Madina","Madina zuwa Makka","Taif zuwa Makka","Yemen zuwa Makka"],correct:0},
-{q:"Shekarar hijira?",a:["622","500","700","800"],correct:0},
-{q:"Hajj ana yin sa a?",a:["Dhul Hijjah","Ramadan","Shawwal","Rajab"],correct:0},
-{q:"Zakka tana daga cikin?",a:["Rukunin Musulunci","Sunn
+    </html>
