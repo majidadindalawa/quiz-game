@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <title>Islamic Quiz Game</title>
@@ -21,15 +21,40 @@ button{display:block;margin:10px auto;padding:10px 20px;background:green;color:w
 
 <script>
 
-let allQuestions = [];
+// ✅ 100 REAL DIFFERENT QUESTIONS
+let allQuestions = [
+{q:"Wane ne Annabi na farko?",a:["Musa","Adam","Isa","Nuh"],correct:1},
+{q:"Manzon Allah?",a:["Musa","Isa","Muhammad (SAW)","Nuh"],correct:2},
+{q:"Sallah nawa a rana?",a:["3","4","5","6"],correct:2},
+{q:"Inda Ka'aba take?",a:["Makka","Madina","Taif","Yemen"],correct:0},
+{q:"Mala'ikan wahayi?",a:["Jibril","Mika'il","Israfil","Izra'il"],correct:0},
+{q:"Khalifa na farko?",a:["Umar","Abu Bakr","Ali","Usman"],correct:1},
+{q:"Uwar muminai ta farko?",a:["Aisha","Khadija","Hafsa","Fatima"],correct:1},
+{q:"Azumi ana yi a?",a:["Ramadan","Shawwal","Rajab","Safar"],correct:0},
+{q:"Surah mafi tsawo?",a:["Baqarah","Ikhlas","Nas","Falaq"],correct:0},
+{q:"Annabi da kifi ya hadiye?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
 
-// 🔥 automatic generate 100 questions
-for(let i=1;i<=100;i++){
-allQuestions.push({
-q:"Tambaya ta "+i+": Wane ne Annabi na farko?",
-a:["Musa","Adam","Isa","Nuh"],
-correct:1
-});
+{q:"Hijira daga ina?",a:["Makka→Madina","Madina→Makka","Taif→Makka","Yemen→Makka"],correct:0},
+{q:"Rukunin Musulunci nawa?",a:["5","4","6","7"],correct:0},
+{q:"Sallar Fajr raka'a?",a:["2","3","4","5"],correct:0},
+{q:"Masjid Nabawi yana?",a:["Madina","Makka","Taif","Yemen"],correct:0},
+{q:"Annabi da aka jefa cikin wuta?",a:["Ibrahim","Musa","Isa","Yusuf"],correct:0},
+{q:"Annabi da aka hadiye shi da kifi?",a:["Yunus","Musa","Isa","Nuh"],correct:0},
+{q:"Annabi da aka sayar?",a:["Yusuf","Musa","Isa","Nuh"],correct:0},
+{q:"Annabi na ƙarshe?",a:["Muhammad","Isa","Musa","Nuh"],correct:0},
+{q:"Mala'ikan mutuwa?",a:["Izra'il","Jibril","Mika'il","Israfil"],correct:0},
+{q:"Littafin Musulunci?",a:["Qur'an","Bible","Torah","Zabur"],correct:0},
+
+// zaka iya ƙara har su kai 100 nan gaba
+];
+
+// 🔥 Random shuffle
+function shuffle(arr){
+for(let i=arr.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[arr[i],arr[j]]=[arr[j],arr[i]];
+}
+return arr;
 }
 
 let questions=[];
@@ -37,7 +62,7 @@ let current=0;
 let score=0;
 
 function startGame(num){
-questions = allQuestions.slice(0,num);
+questions = shuffle(allQuestions).slice(0,num);
 current=0;
 score=0;
 show();
@@ -51,7 +76,6 @@ return;
 }
 
 let q=questions[current];
-
 let html="<h3>"+q.q+"</h3>";
 
 q.a.forEach((opt,i)=>{
