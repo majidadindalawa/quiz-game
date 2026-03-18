@@ -20,7 +20,78 @@ font-size:16px;
 </style>
 </head>
 
-<body>
+<body><body>
+
+<h1>Islamic Quiz Game</h1>
+
+<h2>Select Level</h2>
+
+<button onclick="startGame('easy')">Easy</button>
+<button onclick="startGame('medium')">Medium</button>
+<button onclick="startGame('hard')">Hard</button>
+
+<div id="quiz"></div>
+
+<script>
+
+let currentQuestion = 0;
+let score = 0;
+let level = "easy";
+
+function startGame(lv){
+    level = lv;
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
+}
+
+function getQuestions(){
+    if(level === "easy"){
+        return questions.slice(0,10);
+    }
+    if(level === "medium"){
+        return questions.slice(10,30);
+    }
+    if(level === "hard"){
+        return questions.slice(30,60);
+    }
+}
+
+function showQuestion(){
+    let qList = getQuestions();
+
+    if(currentQuestion >= qList.length){
+        document.getElementById("quiz").innerHTML =
+        "<h2>Game Finished</h2><h3>Your Score: "+score+"</h3><button onclick='location.reload()'>Play Again</button>";
+        return;
+    }
+
+    let q = qList[currentQuestion];
+
+    let html = "<h3>"+q.q+"</h3>";
+
+    q.a.forEach((option,i)=>{
+        html += "<button onclick='checkAnswer("+i+")'>"+option+"</button><br><br>";
+    });
+
+    document.getElementById("quiz").innerHTML = html;
+}
+
+function checkAnswer(i){
+    let qList = getQuestions();
+    let q = qList[currentQuestion];
+
+    if(i === q.correct){
+        score++;
+    }
+
+    currentQuestion++;
+    showQuestion();
+}
+
+</script>
+
+</body>
 
 <h1>Islamic Quiz Game</h1>
 
